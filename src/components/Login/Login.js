@@ -1,17 +1,29 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import useFirebase from "../../hooks/useFirebase"
 
 
 const Login = () => {
   const {signInWithGoogle} = useFirebase();
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  let from = location.state?.from?.pathname || "/";
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+    .then(() => {
+      navigate(from)
+    })
+  }
  
 
   return (
     <div className="w-full flex flex-col justify-center items-center mt-10">
         <h1 className="text-red-800 font-bold">Login Please!</h1>
       <div className="w-6/12">
-        <button onClick={signInWithGoogle} className="px-4 py-2 bg-cyan-900 text-white rounded font-bold my-5">sign in with google</button>
+        <button onClick={handleGoogleSignIn} className="px-4 py-2 bg-cyan-900 text-white rounded font-bold my-5">sign in with google</button>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label className="font-semibold">Email address</Form.Label>

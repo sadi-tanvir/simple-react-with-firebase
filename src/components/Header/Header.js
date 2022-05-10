@@ -21,6 +21,9 @@ const Header = () => {
               <Link className="no-underline text-red-800 font-semibold" to="/">
                 Home
               </Link>
+              <Link className="no-underline text-red-800 font-semibold ml-5" to="/blog">
+                Blogs
+              </Link>
               {user?.uid ? (
                 <Link
                   onClick={handleSignOut}
