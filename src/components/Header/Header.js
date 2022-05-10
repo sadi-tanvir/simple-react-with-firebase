@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useFirebase from "../../hooks/useFirebase";
 
 const Header = () => {
-  const { user } = useFirebase();
+  const { user, handleSignOut } = useFirebase();
   console.log(`i am from header`, user);
   return (
     <>
@@ -21,6 +21,15 @@ const Header = () => {
               <Link className="no-underline text-red-800 font-semibold" to="/">
                 Home
               </Link>
+              {user?.uid ? (
+                <Link
+                  onClick={handleSignOut}
+                  className="no-underline text-red-800 ml-5 font-semibold"
+                  to="/login"
+                >
+                  signout
+                </Link>
+              ) : (
                 <>
                   <Link
                     className="no-underline text-red-800 ml-5 font-semibold"
@@ -35,6 +44,7 @@ const Header = () => {
                     Register
                   </Link>
                 </>
+              )}
             </Nav>
             {user?.displayName && (
               <span
